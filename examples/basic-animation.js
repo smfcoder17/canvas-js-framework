@@ -1,11 +1,12 @@
-import * as Utils from './lib/Utilities.js'
-import Canvas from './lib/Canvas.js'
-import {Random} from './lib/Random.js'
-import {RectShape, CircleShape, Shape, PolygonShape} from './lib/Shapes.js'
+import * as Utils from '../lib/Utilities.js'
+import Canvas from '../lib/Canvas.js'
+import Random from '../lib/Random.js'
+import {RectShape, CircleShape, Shape, PolygonShape} from '../lib/Shapes.js'
 
 let canvas = new Canvas('myCanvas', window.innerWidth - 10, window.innerHeight - 10);
 let entities = [];
 let mouse = new Utils.Vector2();
+const NB_ENTITIES = 600;
 
 function init() {
     document.addEventListener('keydown', (evt = new KeyboardEvent()) => {
@@ -33,7 +34,7 @@ function init() {
 
     console.log(Shape.Fill | Shape.Stroke);
 
-    for (let i = 0; i < 1200; i++) {
+    for (let i = 0; i < NB_ENTITIES; i++) {
         let radius = Random.int(1, 2);
         //let color = Utils.Color.rgba(Random.int(0, 50), Random.int(100, 255), Random.int(150, 255), Random.float(1, 1));
         let color = Random.element([Utils.Color.Red, Utils.Color.Dark, Utils.Color.Blue, Utils.Color.LightBlue]);

@@ -2,30 +2,16 @@ import Canvas from "./lib/Canvas.js";
 import { DeltaTime, Color, Direction, Keys, Vector2 } from "./lib/Utilities.js";
 import { RectShape, Shape, CircleShape } from "./lib/Shapes.js";
 import Random from "./lib/Random.js"
+import { Image } from "./lib/Image.js";
 
 let canvas = new Canvas('myCanvas', innerWidth - 5, innerHeight - 5);
 let mouse = {x: 0, y: 0};
-function Particle(velocity = new Vector2(0, 0), circle = new CircleShape(0, 0, 5, Shape.Fill)){ 
-    this.velocity = velocity;
-    this.body = circle;
-    this.radians = 0;
+let img = new Image(0, 0, 290, 309, "/js/examples/res/pp.png");
+let img2 = new Image(0, 0, 300, 150, "/js/examples/res/img2.png");
 
-    this.update = (dt) => {
-        this.radians += this.velocity * dt.sec;
-        this.body.x = this.body.x + Math.cos(this.radians) * 5;
-        this.body.y = this.body.y + Math.sin(this.radians) * 5;
-    };
-
-    this.draw = function() { this.body.draw(canvas.ctx); };
-};
-
-let particles = [];
 function init() {
-    // var initialisation
-    for (let i = 0; i < 15; i++) {
-        particles[i] = new Particle(Random.int(2, 4), new CircleShape(Random.int(200, 225), Random.int(200, 215), 5, Shape.Fill));
-        particles[i].body.setColor(Random.element([Color.Blue, Color.Cyan, Color.Purple]));
-    }
+    canvas.attach(img2);
+    canvas.attach(img);
 
     // eventListener initialisation
     canvas.c.addEventListener('mousemove', onMouseMove);
@@ -38,16 +24,12 @@ function init() {
 }
 
 function update(dt = new DeltaTime()) {
-    particles.forEach((particle) => {
-        particle.update(dt);
-    });
+    img2.setPosition(mouse.x, mouse.y);
 }
 
 function draw() {
-    canvas.clear(Color.LightGray);
-    particles.forEach((particle) => {
-        particle.draw();
-    });
+    canvas.clear(Color.White);
+    canvas.drawEntities();
 }
 
 canvas.onInit = init;
